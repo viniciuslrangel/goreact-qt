@@ -5,8 +5,8 @@ import (
 	"github.com/viniciuslrangel/goreact-qt/internal/native_comp"
 )
 
-var Window = FCC("Qt Window", func(children ...Node) Node {
+var Window = FCSC("Qt Window", func(child Node) Node {
 	return NativeEl(native_comp.WindowName, ChildrenProps{
-		Children: children,
+		Children: []Node{child},
 	})
 })

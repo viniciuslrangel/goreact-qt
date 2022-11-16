@@ -1,9 +1,9 @@
 package goreact_qt
 
 import (
-	. "Goreact"
 	"github.com/therecipe/qt/widgets"
-	"goreact_qt/internal/native_comp"
+	. "github.com/viniciuslrangel/goreact"
+	"github.com/viniciuslrangel/goreact-qt/internal/native_comp"
 	"os"
 )
 

@@ -1,8 +1,8 @@
 package components
 
 import (
-	. "Goreact"
-	"goreact_qt/internal/native_comp"
+	. "github.com/viniciuslrangel/goreact"
+	"github.com/viniciuslrangel/goreact-qt/internal/native_comp"
 )
 
 type ButtonProps = native_comp.ButtonProps

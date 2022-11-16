@@ -1,8 +1,8 @@
 package native_comp
 
 import (
-	. "Goreact"
 	"github.com/therecipe/qt/widgets"
+	. "github.com/viniciuslrangel/goreact"
 )
 
 type Widget interface {

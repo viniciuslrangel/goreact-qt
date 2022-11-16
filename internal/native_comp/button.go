@@ -9,11 +9,13 @@ import (
 type button struct {
 	render QtRender
 	widget *widgets.QPushButton
+
+	lastProps ButtonProps
 }
 
 type ButtonProps struct {
-	Label string
-	Flat  bool
+	Label     string
+	OnClicked func()
 }
 
 const ButtonName = "qt_button"
@@ -31,8 +33,12 @@ func (b *button) GetName() string {
 }
 
 func (b *button) UpdateElement(element *NodeData) {
+	last := b.lastProps
 	props := element.Props.(ButtonProps)
-	b.widget.SetText(props.Label)
+	b.lastProps = props
+	if last.Label != props.Label {
+		b.widget.SetText(props.Label)
+	}
 }
 
 func (b *button) OnWidgetCreated(node *NodeData) {
@@ -43,6 +49,12 @@ func (b *button) OnWidgetCreated(node *NodeData) {
 		return
 	}
 	parent.AddQtWidget(b.widget)
+
+	b.widget.ConnectClicked(func(_ bool) {
+		if b.lastProps.OnClicked != nil {
+			b.lastProps.OnClicked()
+		}
+	})
 }
 
 func (b *button) OnWidgetRemoved(node *NodeData) {

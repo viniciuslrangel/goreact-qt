@@ -33,9 +33,9 @@ func (b *button) GetName() string {
 	return ButtonName
 }
 
-func (b *button) UpdateElement(element *NodeData) {
+func (b *button) UpdateElement(node *NodeData) {
 	last := b.props
-	props := element.Props.(ButtonProps)
+	props := node.Props.(ButtonProps)
 	b.props = props
 	if last.Label != props.Label {
 		b.widget.SetText(props.Label)

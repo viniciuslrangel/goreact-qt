@@ -42,6 +42,7 @@ func (w *window) OnWidgetCreated(node *NodeData) {
 
 func (w *window) OnWidgetRemoved(node *NodeData) {
 	w.widget.Close()
+	w.widget.DeleteLater()
 	w.widget = nil
 }
 

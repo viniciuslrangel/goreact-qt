@@ -11,7 +11,7 @@ type gridCell struct {
 
 	props GridCellProps
 
-	parent *widgets.QGridLayout
+	parent *gridLayout
 	child  widgets.QWidget_ITF
 }
 
@@ -40,12 +40,6 @@ func (g *gridCell) GetName() string {
 func (g *gridCell) UpdateElement(node *NodeData) {
 	nProps := node.Props.(GridCellProps)
 	changed := false
-	if nProps.RowSpan <= 0 {
-		nProps.RowSpan = 1
-	}
-	if g.props.ColumnSpan <= 0 {
-		g.props.ColumnSpan = 1
-	}
 
 	if nProps.RowSpan != g.props.RowSpan {
 		changed = true
@@ -58,7 +52,7 @@ func (g *gridCell) UpdateElement(node *NodeData) {
 	}
 	g.props = nProps
 	if changed && g.child != nil {
-		g.parent.RemoveWidget(g.child)
+		g.parent.RemoveWidget(g.child, g.props.Row, g.props.Column)
 		g.insertElement()
 	}
 }
@@ -68,12 +62,12 @@ func (g *gridCell) OnWidgetCreated(node *NodeData) {
 		log.Printf("GridCell requires a GridLayout as parent\n")
 		return
 	}
-	g.parent = node.Parent.NativeElement.(*gridLayout).layout
+	g.parent = node.Parent.NativeElement.(*gridLayout)
 }
 
 func (g *gridCell) OnWidgetRemoved(node *NodeData) {
 	if g.child != nil {
-		g.parent.RemoveWidget(g.child)
+		g.parent.RemoveWidget(g.child, g.props.Row, g.props.Column)
 	}
 	g.parent = nil
 }
@@ -92,10 +86,18 @@ func (g *gridCell) RemoveQtWidget(child widgets.QWidget_ITF) {
 		log.Printf("GridCell does not have this child\n")
 		return
 	}
-	g.parent.RemoveWidget(g.child)
+	g.parent.RemoveWidget(g.child, g.props.Row, g.props.Column)
 	g.child = nil
 }
 
 func (g *gridCell) insertElement() {
-	g.parent.AddWidget3(g.child, g.props.Row, g.props.Column, g.props.RowSpan, g.props.ColumnSpan, 0)
+	rowSpan := g.props.RowSpan
+	if rowSpan <= 0 {
+		rowSpan = 1
+	}
+	colSpan := g.props.ColumnSpan
+	if colSpan <= 0 {
+		colSpan = 1
+	}
+	g.parent.AddQtWidget(g.child, g.props.Row, g.props.Column, rowSpan, colSpan)
 }

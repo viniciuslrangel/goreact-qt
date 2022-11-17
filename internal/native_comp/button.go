@@ -9,6 +9,7 @@ import (
 type button struct {
 	render QtRender
 	widget *widgets.QPushButton
+	parent ParentWidget
 
 	props ButtonProps
 }
@@ -43,12 +44,12 @@ func (b *button) UpdateElement(element *NodeData) {
 
 func (b *button) OnWidgetCreated(node *NodeData) {
 	b.widget = widgets.NewQPushButton(nil)
-	parent := b.render.FindFirstContainer(node)
-	if parent == nil {
+	b.parent = b.render.FindFirstContainer(node)
+	if b.parent == nil {
 		log.Printf("Button requires a container node\n")
 		return
 	}
-	parent.AddQtWidget(b.widget)
+	b.parent.AddQtWidget(b.widget)
 
 	b.widget.ConnectClicked(func(_ bool) {
 		if b.props.OnClicked != nil {
@@ -58,10 +59,9 @@ func (b *button) OnWidgetCreated(node *NodeData) {
 }
 
 func (b *button) OnWidgetRemoved(node *NodeData) {
-	parent := b.widget.ParentWidget()
-	if parent == nil {
-		log.Printf("Button has no parent\n")
+	b.widget.DeleteLater()
+	if b.parent == nil {
 		return
 	}
-	parent.Layout().RemoveWidget(b.widget)
+	b.parent.RemoveQtWidget(b.widget)
 }

@@ -10,6 +10,7 @@ import (
 type label struct {
 	render QtRender
 	widget *widgets.QLabel
+	parent ParentWidget
 
 	props LabelProps
 }
@@ -43,19 +44,18 @@ func (l *label) UpdateElement(node *NodeData) {
 
 func (l *label) OnWidgetCreated(node *NodeData) {
 	l.widget = widgets.NewQLabel(nil, core.Qt__Widget)
-	parent := l.render.FindFirstContainer(node)
-	if parent == nil {
+	l.parent = l.render.FindFirstContainer(node)
+	if l.parent == nil {
 		log.Printf("Label requires a container node\n")
 		return
 	}
-	parent.AddQtWidget(l.widget)
+	l.parent.AddQtWidget(l.widget)
 }
 
 func (l *label) OnWidgetRemoved(node *NodeData) {
-	parent := l.widget.ParentWidget()
-	if parent == nil {
-		log.Printf("Label has no parent\n")
+	l.widget.DeleteLater()
+	if l.parent == nil {
 		return
 	}
-	parent.Layout().RemoveWidget(l.widget)
+	l.parent.RemoveQtWidget(l.widget)
 }

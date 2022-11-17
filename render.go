@@ -36,15 +36,20 @@ func (q *qtRender) InsertNode(node *NodeData) {
 func (q *qtRender) RemoveNode(node *NodeData) {
 	widget := node.NativeElement.(native_comp.Widget)
 	widget.OnWidgetRemoved(node)
+	node.NativeElement = nil
 }
 
 func (q *qtRender) UpdateElement(node *NodeData) {
 	widget := node.NativeElement.(native_comp.Widget)
 	widget.UpdateElement(node)
 
-	cProps, hasChildren := node.Props.(ChildrenProps)
+	cProps, hasChildren := node.Props.(IChildrenProps)
 	if hasChildren {
-		node.Children = cProps.Children
+		node.Children = cProps.GetChildren()
+		for _, child := range node.Children {
+			childData := child.(*NodeData)
+			childData.IsDirty = true
+		}
 	}
 }
 

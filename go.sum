@@ -15,8 +15,8 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/therecipe/qt v0.0.0-20200904063919-c0c124a5770d h1:T+d8FnaLSvM/1BdlDXhW4d5dr2F07bAbB+LpgzMxx+o=
 github.com/therecipe/qt v0.0.0-20200904063919-c0c124a5770d/go.mod h1:SUUR2j3aE1z6/g76SdD6NwACEpvCxb3fvG82eKbD6us=
-github.com/viniciuslrangel/goreact v0.0.0-20221116040927-1a9e33013e7f h1:9CL4hLU8UQTNrcn84uVTsUOFdZcCFOEsZsIBhKnyPQ4=
-github.com/viniciuslrangel/goreact v0.0.0-20221116040927-1a9e33013e7f/go.mod h1:pGv7hxnMADb6C9XHFbpvUfwwVzqzOxXiSxzt609mNWo=
+github.com/viniciuslrangel/goreact v0.0.0-20221117052452-19ff5a934783 h1:Jb5H/JLqdo0Vrt1O9TzdZUV/3S5/5lR7+EiXyOPYMXc=
+github.com/viniciuslrangel/goreact v0.0.0-20221117052452-19ff5a934783/go.mod h1:pGv7hxnMADb6C9XHFbpvUfwwVzqzOxXiSxzt609mNWo=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20190418165655-df01cb2cc480/go.mod h1:WFFai1msRO1wXaEeE5yQxYXgSfI8pQAWXbQop6sCtWE=
 golang.org/x/net v0.0.0-20190311183353-d8887717615a/go.mod h1:t9HGtf8HONx5eT2rtn7q6eTqICYqUVnKs3thJo3Qplg=

@@ -10,7 +10,7 @@ type button struct {
 	render QtRender
 	widget *widgets.QPushButton
 
-	lastProps ButtonProps
+	props ButtonProps
 }
 
 type ButtonProps struct {
@@ -33,9 +33,9 @@ func (b *button) GetName() string {
 }
 
 func (b *button) UpdateElement(element *NodeData) {
-	last := b.lastProps
+	last := b.props
 	props := element.Props.(ButtonProps)
-	b.lastProps = props
+	b.props = props
 	if last.Label != props.Label {
 		b.widget.SetText(props.Label)
 	}
@@ -51,8 +51,8 @@ func (b *button) OnWidgetCreated(node *NodeData) {
 	parent.AddQtWidget(b.widget)
 
 	b.widget.ConnectClicked(func(_ bool) {
-		if b.lastProps.OnClicked != nil {
-			b.lastProps.OnClicked()
+		if b.props.OnClicked != nil {
+			b.props.OnClicked()
 		}
 	})
 }

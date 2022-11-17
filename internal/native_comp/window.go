@@ -46,7 +46,7 @@ func (w *window) OnWidgetRemoved(node *NodeData) {
 }
 
 func (w *window) AddQtWidget(child widgets.QWidget_ITF) {
-	w.widget.Layout().AddWidget(child)
+	w.widget.SetCentralWidget(child)
 }
 
 func (w *window) RemoveQtWidget(child widgets.QWidget_ITF) {
